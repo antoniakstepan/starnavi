@@ -1,24 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React, { useState } from 'react';
+import Header from './components/Header/Header';
+import Squar from './components/Squar/Squar';
+import { GlobalStyles, Container, ContentWrap, StoreWrap, StoryInfo } from './styles/globalStyles';
 function App() {
+  const [story, setStore] = useState([]);
+  const [mode, setMode] = useState('');
+  const [isVisible, setIsVisible] = useState(false)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <GlobalStyles/>
+      <Header setIsVisible={setIsVisible} setMode={setMode} />
+      <ContentWrap>
+        <Squar setStore={setStore} mode={mode} isVisible={isVisible} />
+        <StoreWrap>
+        {story.map((item, index) => (
+          <StoryInfo key={index + 1}>
+            {item}
+          </StoryInfo>
+        ))}
+        </StoreWrap>
+      </ContentWrap>
+    </Container>
   );
 }
 
